@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block welcome %}
+    <!-- Alter some of the css specifically on the welcome page -->
+    <style>
+        .navbar {
+            background-color: transparent!important;
+            box-shadow: none!important;
+        }
+    </style>
+
+    <!-- Make load screen -->
+    <div id='loader-wrapper'><!-- https://ihatetomatoes.net/create-custom-preloading-screen/ -->
+        <div class="d-block position-relative top-50 start-50" id="loader"></div>
+        <div class='loader-section bg-dark section-left'></div>
+        <div class='loader-section bg-dark section-right'></div>
+    </div>
+
+    <!-- Show video background only when user is logged out -->
+    <video autoplay loop muted class="grayscale video">
+        <!-- Video by Pressmaster from Pexels [  https://www.pexels.com/video/people-working-on-liquids-inside-a-laboratory-3195367/  ]-->
+        <source src='static/video.mp4' type='video/mp4'>
+    </video>
+    <!-- Call load screen while video loads -->
+    <script>loadScreen();</script>
+    <div class="container position-absolute top-50 start-50 translate-middle p-5" style="width: 890px;">
+        <div>
+            <h1 class='user-select-none text-uppercase text-center display-1 primary-text m-3'>An Electronic Laboratory Notebook</h1>
+        </div>
+        <div>
+            <h3 class='user-select-none text-white text-center lead ps-5 pe-5 ms-5 me-5 mb-0'>Your primary research source for documenting hypotheses, experiments, analyses, and interpretations - all in one place.</h3>
+        </div>
+        <div class="d-grid gap-2 col-4 mx-auto">
+            <a class="user-select-none btn btn-primary mt-5 shadow text-nowrap" href="/login" role="button">Click to get started</a>
+        </div>
+    </div>
+{% endblock %}

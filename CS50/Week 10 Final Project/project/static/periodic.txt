@@ -1,0 +1,149 @@
+CREATE TABLE periodic (
+atomic_no INTEGER,
+symbol TEXT NOT NULL UNIQUE,
+name TEXT NOT NULL UNIQUE,
+conv_weight TEXT,
+std_weight TEXT NOT NULL,
+stp_state TEXT,
+period_no INTEGER,
+group_no INTEGER,
+PRIMARY KEY(atomic_no)
+);
+
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(1, 'H', 'Hydrogen', '1.008', '[1.0078, 1.0082]', 'Gas', 1, 1);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(3, 'Li', 'Lithium', '6.94', '[6.938, 6.997]', 'Solid', 2, 1);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(11, 'Na', 'Sodium', '22.990', 'Solid', 3, 1);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(19, 'K', 'Potassium', '39.098', 'Solid', 4, 1);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(37, 'Rb', 'Rubidium', '85.468', 'Solid', 5, 1);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(55, 'Cs', 'Caesium', '132.91', 'Solid', 6, 1);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(87, 'Fr', 'Francium', '[223]', 'Gas', 7, 1);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(4, 'Be', 'Beryllium', '9.0122', 'Solid', 2, 2);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(12, 'Mg', 'Magnesium', '24.305', '[24.304, 24.307]', 'Solid', 3, 2);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(20, 'Ca', 'Calcium', '40.078(4)', 'Solid', 4, 2);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(38, 'Sr', 'Strontium', '87.62', 'Solid', 5, 2);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(56, 'Ba', 'Barium', '137.33', 'Solid', 6, 2);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(88, 'Ra', 'Radium', '[226]', 'Gas', 7, 2);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(21, 'Sc', 'Scandium', '44.956', 'Solid', 4, 3);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(39, 'Y', 'Yttrium', '88.906', 'Solid', 5, 3);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(71, 'Lu', 'Luteium', '174.97', 'Solid', 6, 3);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(103, 'Lr', 'Lawrencium', '[262]', 'Solid', 7, 3);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(22, 'Ti', 'Titanium', '47.867', 'Solid', 4, 4);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(40, 'Zr', 'Zirconium', '91.224(2)', 'Solid', 5, 4);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(72, 'Hf', 'Hafnium', '178.49(2)', 'Solid', 6, 4);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(104, 'Rf', 'Rutherfordium', '[265]', 7, 4);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(23, 'V', 'Vanadium', '50.942', 'Solid', 4, 5);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(41, 'Nb', 'Niobium', '92.906', 'Solid', 5, 5);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(73, 'Ta', 'Tantalum', '180.95', 'Solid', 6, 5);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(105, 'Db', 'Dubnium', '[268]', 7, 5);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(24, 'Cr', 'Chromium', '51.996', 'Solid', 4, 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(42, 'Mo', 'Molybdenum', '95.95', 'Solid', 5, 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(74, 'W', 'Tungsten', '183.84', 'Solid', 6, 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(106, 'Sg', 'Seaborgium', '[271]', 7, 6);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(25, 'Mn', 'Manganese', '54.938', 'Solid', 4, 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(43, 'Tc', 'Technetium', '[98]', 'Solid', 5, 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(75, 'Re', 'Rhenium', '186.21', 'Solid', 6, 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(107, 'Bh', 'Bohrium', '[270]', 7, 7);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(26, 'Fe', 'Iron', '55.845(2)', 'Solid', 4, 8);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(44, 'Ru', 'Ruthenium', '101.07(2)', 'Solid', 5, 8);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(76, 'Os', 'Osmium', '190.23(3)', 'Solid', 6, 8);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(108, 'Hs', 'Hassium', '[277]', 7, 8);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(27, 'Co', 'Cobalt', '58.933', 'Solid', 4, 9);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(45, 'Rh', 'Rhodium', '102.91', 'Solid', 5, 9);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(77, 'Ir', 'Iridium', '192.22', 'Solid', 6, 9);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(109, 'Mt', 'Meitnerium', '[276]', 7, 9);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(28, 'Ni', 'Nickel', '58.693', 'Solid', 4, 10);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(46, 'Pd', 'Palladium', '106.42', 'Solid', 5, 10);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(78, 'Pt', 'Platinum', '195.08', 'Solid', 6, 10);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(110, 'Ds', 'Darmstadtium', '[281]', 7, 10);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(29, 'Cu', 'Copper', '63.546(3)', 'Solid', 4, 11);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(47, 'Ag', 'Silver', '107.87', 'Solid', 5, 11);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(79, 'Au', 'Gold', '196.97', 'Solid', 6, 11);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(111, 'Rg', 'Roentgenium', '[280]', 7, 11);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(30, 'Zn', 'Zinc', '65.38(2)', 'Solid', 4, 12);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(48, 'Cd', 'Cadmium', '112.41', 'Solid', 5, 12);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(80, 'Hg', 'Mercury', '200.59', 'Liquid', 6, 12);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(112, 'Cn', 'Copernicium', '[285]', 7, 12);
+
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(5, 'B', 'Boron', '10.81', '[10.806, 10.821]', 'Solid', 2, 13);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(13, 'Al', 'Aluminium', '26.982', 'Solid', 3, 13);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(31, 'Ga', 'Gallium', '69.723', 'Solid', 4, 13);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(49, 'In', 'Indium', '114.82', 'Solid', 5, 13);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(81, 'Tl', 'Thallium', '204.38', '[204.38, 204.39]', 'Solid', 6, 13);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(113, 'Nh', 'Nihonium', '[284]', 7, 13);
+
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(6, 'C', 'Carbon', '12.011', '[12.009, 12.012]', 'Solid', 2, 14);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(14, 'Si', 'Silicon', '28.085', '[28.084, 28.086]', 'Solid', 3, 14);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(32, 'Ge', 'Germanium', '72.630(8)', 'Solid', 4, 14);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(50, 'Sn', 'Tin', '118.71', 'Solid', 5, 14);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(82, 'Pb', 'Lead', '207.2', 'Solid', 6, 14);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(114, 'Fl', 'Flerovium', '[289]', 7, 14);
+
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(7, 'N', 'Nitrogen', '14.007', '[14.006, 14.008]', 'Gas', 2, 15);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(15, 'P', 'Phosphorus', '30.974', 'Solid', 3, 15);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(33, 'As', 'Arsenic', '74.922', 'Solid', 4, 15);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(51, 'Sb', 'Antimony', '121.76', 'Solid', 5, 15);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(83, 'Bi', 'Bismuth', '208.98', 'Solid', 6, 15);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(115, 'Mc', 'Moscovium', '[288]', 7, 15);
+
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(8, 'O', 'Oxygen', '15.999', '[15.999, 16.000]', 'Gas', 2, 16);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(16, 'S', 'Sulfur', '32.06', '[32.059, 32.076]', 'Solid', 3, 16);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(34, 'Se', 'Selenium', '78.971(8)', 'Solid', 4, 16);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(52, 'Te', 'Tellurium', '127.60(3)', 'Solid', 5, 16);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(84, 'Po', 'Polonium', '[209]', 'Solid', 6, 16);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(116, 'Lv', 'Livermorium', '[293]', 7, 16);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(9, 'F', 'Fluorine', '18.998', 'Gas', 2, 17);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(17, 'Cl', 'Chlorine', '35.45', '[35.446, 35.457]', 'Gas', 3, 17);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(35, 'Br', 'Bromine', '79.904', '[79.901, 79.907]', 'Liquid', 4, 17);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(53, 'I', 'Iodine', '126.90', 'Solid', 5, 17);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(85, 'At', 'Astatine', '[210]', 'Solid', 6, 17);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(117, 'Ts', 'Tennessine', '[294]', 7, 17);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(2, 'He', 'Helium', '4.0026', 'Gas', 1, 18);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(10, 'Ne', 'Neon', '20.180', 'Gas', 2, 18);
+INSERT INTO periodic (atomic_no, symbol, name, conv_weight, std_weight, stp_state, period_no, group_no) VALUES(18, 'Ar', 'Argon', '39.95', '[39.792, 39.963]', 'Gas', 3, 18);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(36, 'Kr', 'Krypton', '83.798(2)', 'Gas', 4, 18);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(54, 'Xe', 'Xenon', '131.29', 'Gas', 5, 18);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no, group_no) VALUES(86, 'Rn', 'Radon', '[222]', 'Gas', 6, 18);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, period_no, group_no) VALUES(118, 'Og', 'Oganesson', '[294]', 7, 18);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(57, 'La', 'Lanthanum', '138.91', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(58, 'Ce', 'Cerium', '140.12', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(59, 'Pr', 'Praseodymium', '140.91', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(60, 'Nd', 'Neodymium', '144.24', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(61, 'Pm', 'Promethium', '[145]', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(62, 'Sm', 'Samarium', '150.36(2)', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(63, 'Eu', 'Europium', '151.96', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(64, 'Gd', 'Gadolinium', '157.25(3)', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(65, 'Tb', 'Terbium', '158.93', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(66, 'Dy', 'Dysprosium', '162.50', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(67, 'Ho', 'Holmium', '164.93', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(68, 'Er', 'Erbium', '167.26', 'Solid', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(69, 'Tm', 'Thulium', '168.93', 'Soild', 6);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(70, 'Yb', 'Ytterbium', '173.05', 'Solid', 6);
+
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(89, 'Ac', 'Actinium', '[227]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(90, 'Th', 'Thorium', '232.04', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(91, 'Pa', 'Protactinium', '231.04', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(92, 'U', 'Uranium', '238.03', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(93, 'Np', 'Neptunium', '[237]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(94, 'Pu', 'Plutonium', '[244]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(95, 'Am', 'Americium', '[243]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(96, 'Cm', 'Curium', '[247]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(97, 'Bk', 'Berkelium', '[247]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(98, 'Cf', 'Californium', '[251]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(99, 'Es', 'Einsteinium', '[252]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(100, 'Fm', 'Fermium', '[257]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(101, 'Md', 'Mendelevium', '[258]', 'Solid', 7);
+INSERT INTO periodic (atomic_no, symbol, name, std_weight, stp_state, period_no) VALUES(102, 'No', 'Nobelium', '[259]', 'Solid', 7);

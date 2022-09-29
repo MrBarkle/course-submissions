@@ -1,0 +1,548 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block tabs %}
+    <!-- Create Tabs For Each Notebook -->
+    <div class="pt-2">
+        <ul class="nav nav-tabs border-bottom-0">
+            <div class="position-relative">
+                <!-- Button To Trigger Create Notebook Modal -->
+                <button class="btn btn-secondary shadow-sm m-2 mt-0" role="button" type="button" data-bs-placement="bottom" data-bs-toggle="modal" data-bs-target="#notebookModal" data-bs-toggle="tooltip" data-bs-placement="right" title="Start new notebook">
+                    <i class="bi bi-book pe-1"></i> Create Notebook
+                    <!-- Add notice to create notebook button -->
+                    <h5 id="newNotice-Nb" style="display: none;" class="m-0">
+                        <span class="position-absolute top-0 start-100 translate-middle shadow-sm badge rounded-pill bg-primary">
+                            New
+                        </span>
+                    </h5>
+                </button>
+            </div>
+            {% for item in notebooks %}
+                <li class="nav-item">
+                    <!-- Use Jinja to set last updated notebook to active -->
+                    <a class="user-select-none nav-link me-1 {% if item.last_active == 1 %} active {% endif %}"
+                       data-bs-toggle="tab" href="#notebook-{{ item.number }}" id="notebook-{{ item.number }}-tab"
+                       style="padding-bottom: .8rem; {% if item.base_hex != 0 %} background-color: #{{ item.base_hex }}; border-color: #{{ item.border }}; color: #{{ item.text }} {% endif %}">
+                        {{ item.course }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- If No Notebooks Have Been Created for User-->
+    {% if nb_total == 0 %}
+        <script>
+            showNotice('notebook');
+        </script>
+    {% endif %}
+
+{% endblock %}
+
+{% block main %}
+    <!-- Add Table of Contents to Each Notebook Tab -->
+    <div class="tab-content mb-5 px-5 pt-0 pb-2">
+    {% for item in notebooks %}
+        <!-- Use Jinja to set first tab contents pane to active -->
+        <div id="notebook-{{ item.number }}" class="p-5 shadow rounded tab-pane {% if item.last_active == 1 %} active {% endif %}" role="tabpanel" aria-labelledby="notebook-{{ item.number }}-tab"
+             {% if item.base_hex != 0 %} style="background-color: #{{ item.base_hex }}" {% endif %}>
+            <!-- Create custom jumbotron (dropped in bootstrap v5.0) -->
+            <div class="bg-light bg-gradient shadow rounded-3 px-3 py-1" id="toc_header_nb-{{ item.number }}" ondblclick="toggleFields({{ item.number }});"
+                 {% if item.base_hex != 0 %} style="background-color: #{{ item.header }}!important; color: #{{ item.text }}" {% endif %}>
+                <form action="/update_notebook" method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Add save button -->
+                            <button id="edit_nb-{{ item.number }}" class="btn btn-light shadow-sm mt-2 text-nowrap" role="button" type="submit"
+                                    style="float: left; display: none; {% if item.base_hex != 0 %} background-color: #{{ item.button }};
+                                           color: #{{ item.text }}; border-color: #{{ item.button }}; {% endif %}"
+                                    data-bs-toggle="tooltip" data-bs-placement="right" title="Save changes to Table of Contents">
+                                <i class="bi bi-save"></i> Save
+                            </button>
+                            <!-- Create custom color picker for tab color -->
+                            <div class="dropdown custom-color-picker mt-2 ms-2" title="Choose tab color">
+                                <button class="btn btn-light shadow-sm w-100 h-100 p-1" type="button" id="colorMenu-{{ item.number }}" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="display: none; {% if item.base_hex != 0 %} background-color: #{{ item.button }}; color: #{{ item.text }}; border-color: #{{ item.button }}; {% endif %}">
+                                    <div id="changeColor-{{ item.number }}" class="custom-color border rounded w-100 h-100 border-secondary"></div>
+                                </button>
+                                <!-- Create color selection dropdown -->
+                                <div class="dropdown-menu p-1" aria-labelledby="colorMenu-{{ item.number }}">
+                                    <!-- Row 1 color picker -->
+                                    <div class="row p-0 w-100 m-0 flex-nowrap">
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[1] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #FFC107;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[2] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #FF9800;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[3] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #FF5722;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[4] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #F44336;"></button>
+                                        </div>
+                                    </div>
+                                    <!-- Row 2 color picker -->
+                                    <div class="row p-0 w-100 m-0 flex-nowrap">
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[5] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #E91E63;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[6] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #9C27B0;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[7] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #673AB7;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[8] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #3F51B5;"></button>
+                                        </div>
+                                    </div>
+                                    <!-- Row 3 color picker -->
+                                    <div class="row p-0 w-100 m-0 flex-nowrap">
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[9] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #2196F3;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[10] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #03A9F4;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[11] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #00BCD4;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[12] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #009688;"></button>
+                                        </div>
+                                    </div>
+                                    <!-- Row 4 color picker -->
+                                    <div class="row p-0 w-100 m-0 flex-nowrap">
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[13] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #4CAF50;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[14] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #8BC34A;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[15] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #CDDC39;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[16] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #FFEB3B;"></button>
+                                        </div>
+                                    </div>
+                                    <!-- Row 5 color picker -->
+                                    <div class="row p-0 w-100 m-0 flex-nowrap">
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[17] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #795548;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[19] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #242526;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[18] }});" class="custom-color-btn rounded dropdown-item" style="background-color: #BFBFBF;"></button>
+                                        </div>
+                                        <div class="col rounded p-0 m-1">
+                                            <button role="button" type="button" onclick="changeColor({{ item.number }}, {{ themes[0] }});" class="custom-color-btn rounded dropdown-item bg-light"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Send last clicked color on form submission behind the scenes, default to 0 -->
+                            <input id="lastClickedColor_nb-{{ item.number }}" type="hidden" name="last_clicked" value=0></input>
+                        </div>
+                        <div class="col">
+                            <!-- Table of Contents header text -->
+                            <p class="text-center user-select-none tbl-c-bold"> Table of Contents</p>
+                        </div>
+                        <div class="col">
+                            <div class="position-relative">
+                                <!-- Add experiment creation button -->
+                                <button id="add_exp_nb-{{ item.number }}" onmouseup="setNotebookNumber();" class="btn btn-light shadow-sm text-nowrap mt-2" data-bs-button="{{ item.number }}"
+                                        role="button" type="button" data-bs-toggle="modal" data-bs-target="#experimentModal" data-bs-toggle="tooltip"
+                                        data-bs-placement="left" title="Start new experiment"
+                                        style="float: right; {% if item.base_hex != 0 %} background-color: #{{ item.button }}; color: #{{ item.text }}; border-color: #{{ item.button }}; {% endif %}" >
+                                    <i class="bi bi-bookmark-plus"></i> New Experiment
+                                    <!-- Add notice to create notebook button -->
+                                    <h5 id="newNotice-Exp" style="display: none;" class="m-0">
+                                        <span class="position-absolute top-0 start-100 translate-middle shadow-sm badge rounded-pill bg-primary">
+                                            New
+                                        </span>
+                                    </h5>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- If No Experiments Have Been Created for User-->
+                        {% if exp_total == 0 %}
+                            <script>
+                                showNotice('experiment');
+                            </script>
+                        {% endif %}
+                    </div>
+                    <!-- Add notebook number as subheading -->
+                    <p class="lh-1 pb-4 text-center user-select-none tbl-c">Notebook No: {{ item.number }}</p>
+                    <!-- Send notebook number on form submission behind the scenes -->
+                    <input type="hidden" name="number" value="{{ item.number }}"></input>
+                    <!-- Row 1 of form -->
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <!-- Dispaly notebook profile name -->
+                                <span class="user-select-none input-group-text" id="addon-name-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Name:</span>
+                                <input disabled id="first-{{ item.number }}" type="text" class="form-control tbl-c text-capitalize " value="{{ profile.first_name }}" aria-describedby="addon-name-{{ item.number }}">
+                                <input disabled id="last-{{ item.number }}" type="text" class="form-control tbl-c text-capitalize " value="{{ profile.last_name }}" aria-describedby="addon-name-{{ item.number }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm">
+                                <!-- Display notebook course name -->
+                                <span class="user-select-none input-group-text" id="addon-course-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Course:</span>
+                                <input disabled id="course-{{ item.number }}" type="text" name="course" class="form-control tbl-c" value="{{ item.course }}" minlength="1" placeholder="Course" aria-describedby="addon-course-{{ item.number }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group input-group-sm">
+                                <!-- Display notebook section -->
+                                <span class="user-select-none input-group-text" id="addon-section-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Section:</span>
+                                <input disabled id="section-{{ item.number }}" type="number" name="section" class="form-control tbl-c" value="{{ item.section | int}}" placeholder="Section" min="1" aria-describedby="addon-section-{{ item.number }}">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row 2 of form -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-2">
+                            <div class="input-group input-group-sm">
+                                <!-- Display Semester -->
+                                <span class="user-select-none input-group-text" id="addon-semester-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Semester:</span>
+                                <select disabled id="semester-{{ item.number }}" name="semester" class="form-select tbl-c" aria-describedby="addon-semester-{{ item.number }}">
+                                    <option disabled {% if item.semester=="NULL" %}  selected="selected"{% endif %}>None</option>
+                                    <option value="Spring" {% if item.semester=="spring" %}  selected="selected"{% endif %}>Spring</option>
+                                    <option value="Fall" {% if item.semester=="fall" %}  selected="selected"{% endif %}>Fall</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group input-group-sm">
+                                <!-- Display Year -->
+                                <span class="user-select-none input-group-text" id="addon-year-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Year:</span>
+                                <select disabled id="year-{{ item.number }}" name="year" class="form-select tbl-c" aria-describedby="addon-year-{{ item.number }}">
+                                    <option disabled >Year</option>
+                                    {% for year in range(2021, 2100) %}
+                                        {% if year == item.year %}
+                                            <option selected value="{{ year }}" >{{year}}</option>
+                                        {% else %}
+                                            <option value="{{ year }}" >{{year}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <!-- Display Lab Instructor name -->
+                                <span class="user-select-none input-group-text" id="addon-instructor-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Laboratory Instructor:</span>
+                                <input disabled id="instructor-{{ item.number }}" type="text" name="instructor" class="form-control tbl-c"
+                                {% if item.instructor=="NULL" %} value="None" {% else %} value="{{ item.instructor }}" {% endif %}
+                                placeholder="Laboratory Instructor" aria-describedby="addon-instructor-{{ item.number }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <!-- Display Lab Partners' names -->
+                                <span class="user-select-none input-group-text" id="addon-partners-{{ item.number }}"
+                                      {% if item.base_hex != 1 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>Laboratory Partner(s):</span>
+                                <input disabled id="partners-{{ item.number }}" type="text" name="partners" class="form-control tbl-c"
+                                {% if item.partners=="NULL"%} value="None" {% else %} value="{{ item.partners | clean }}" {% endif %}
+                                aria-describedby="addon-partners-{{ item.number }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Add button to sort table -->
+            <div class="my-2" style="float: right;">
+                <form action="/" method="post">
+                    <!-- Send notebook number on form submission behind the scenes -->
+                    <input type="hidden" name="number" value="{{ item.number }}"></input>
+                    <!-- Create dropdown for sort options -->
+                    <div class="dropdown" id="sort_nb-{{ item.number }}">
+                        <button class="btn btn-light shadow-sm dropdown-toggle" type="button" id="sortMenu-{{ item.number }}" data-bs-toggle="dropdown" aria-expanded="false"
+                                {% if item.base_hex != 0 %} style="background-color: #{{ item.button }}; color: #{{ item.text }}; border-color: #{{ item.button }};" {% endif %}>
+                            Sort By
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortMenu-{{ item.number }}">
+                            <li><button class="dropdown-item" type="submit" name="title" value="title">Title</button></li>
+                            <li><button class="dropdown-item" type="submit" name="start" value="start">Date Started</button></li>
+                            <li><button class="dropdown-item" type="submit" name="modified" value="modified">Last Modified</button></li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Add table of experiments to each notebook tab -->
+            <table class="table table-bordered table-hover table-sortable m-0 shadow bg-gradient user-select-none" id='table_nb-{{ item.number }}'
+                   {% if item.base_hex != 0 %} style="background-color: #{{ item.disabled }}; color: #{{ item.text }}; border-color: #{{ item.border }};" {% endif %}>
+                <thead class="bg-light" id="table_header_nb-{{ item.number }}" {% if item.base_hex != 0 %}
+                       style="background-color: #{{ item.header }}!important; color: #{{ item.text }}" {% endif %}>
+                    <tr>
+                        <th class="w-10 mw-10 fw-normal">Created</th>
+                        <th class="w-40 mw-40 fw-normal">Title</th>
+                        <th class="w-25 mw-25 fw-normal">Partner(s)</th>
+                        <th class="w-25 mw-25 fw-normal">Last Modified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- For each experiment belonging to current user -->
+                    {% for exp in experiments %}
+                        <!-- Only display experiments for current notebook -->
+                        {% if exp.notebook_no == item.number %}
+                        <tr id="table_rows_nb-{{ item.number }}" class="position-relative">
+                            <!-- Created -->
+                            <td class="w-10 mw-10 fw-light">{{ exp.date_started | convert_date }}</td>
+                            <!-- Experiment/Sibject -->
+                            <td class="w-40 mw-40 fw-light">
+                                <form action="/experiment" method="get">
+                                    <input type="hidden" type="text" name="nb" value="{{ item.number }}">
+                                    <input type="hidden" type="text" name="exp" value="{{ exp.exp_number }}">
+                                    <button type="submit" class="stretched-link border-0 text-reset bg-transparent fw-light">{{ exp.topic }}</button>
+                                </form>
+                            </td>
+                            <!-- Partner(s) -->
+                            {% if exp.partners=="NULL" %}
+                                <td class="w-25 mw-25 fw-light"></td>
+                            {% else %}
+                                <td class="w-25 mw-25 fw-light">{{ exp.partners }}</td>
+                            {% endif %}
+                            <!-- Last Modified -->
+                            <td class="w-25 mw-25 fw-light">
+                                {{ exp.date_modified | compare_date }}
+                                <!-- Delete experiment buttons -->
+                                <button id="deleteExpBtn-{{ item.number }}-{{ exp.exp_number }}" type="button" style="float: right; display: none;"
+                                        class="deleteExpBtn p-0 btn btn-sm btn-danger bg-transparent border-0 stretched-link position-relative" data-bs-toggle="modal" data-bs-target="#deleteExpModal-{{ item.number }}-{{ exp.exp_number }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="left" title="Delete this experiment">
+                                    <i class="text-danger bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                        <!-- Delete Experiment Confirmation Modal -->
+                        <div class="modal fade" id="deleteExpModal-{{ item.number }}-{{ exp.exp_number }}" tabindex="-1" aria-labelledby="ModalLabelExp" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content bg-light">
+                                    <div class="user-select-none modal-header">
+                                        <h5 class="modal-title" id="ModalLabelExp">Delete Experiment</h5>
+                                        <!-- Add Close Button to Modal -->
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="/delete_experiment" method="post">
+                                        <div class="modal-body">
+                                            <input name="exp_number" type="hidden" value="{{ exp.exp_number }}">
+                                            <input name="notebook_no" type="hidden" value="{{ item.number }}">
+                                            <p class="m-0">You are about to <b>permanently</b> delete the experiment titled: "<i>{{ exp.topic }}</i>"
+                                            Once confirmed, this action cannot be undone. Are you sure you wish to continue?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Delete Experiment</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Set theme for each notebook tab -->
+            <script id="setStyle_nb-{{ item.number }}">
+                setTheme({{ item.number }}, "{{ item.base_hex }}", {{ item.id }}, "{{ item.disabled }}", "{{ item.enabled }}",
+                         "{{ item.border }}", "{{ item.text }}", "{{ item.rgb }}");
+            </script>
+
+            <!-- Place a delete notebook button at the bottom of each notebook tab -->
+            <div class="mt-auto">
+                <div class="d-grid gap-2 col-1 mx-auto">
+                    <button id="deleteNbBtn-{{ item.number }}" type="button" class="btn btn-danger shadow-sm text-nowrap mt-5" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal-{{ item.number }}" style="display: none;" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Delete this notebook">
+                        Delete Notebook
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Delete Notebook Confirmation Modal -->
+        <div class="modal fade" id="deleteModal-{{ item.number }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-light">
+                    <div class="user-select-none modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Delete Notebook</h5>
+                        <!-- Add Close Button to Modal -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/delete_notebook" method="post">
+                        <div class="modal-body">
+                            <input name="notebook_no" type="hidden" value="{{ item.number }}">
+                            <p class="m-0">You are about to <b>permanently</b> delete Notebook No. {{ item.number }}: "<i>{{ item.course }}</i>"
+                            and all of its contents. Once confirmed, this action cannot be undone. Are you sure you wish to continue?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Delete Notebook</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <!-- Create Notebook Modal -->
+    <div class="modal fade" id="notebookModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-light">
+                <div class="user-select-none modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Create a New Notebook</h5>
+                    <!-- Add Close Button to Modal -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Notebook Creation Criteria -->
+                <form action="/notebook" method="post" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!-- Row 1 of form -->
+                            <div class="row g-2">
+                                <!-- Course/Subject form input -->
+                                <div class="user-select-none form-floating col-md-12 mb-3">
+                                    <input id="floatingCS" autofocus type="text" name="course" class="form-control" placeholder="Course/Subject *" required>
+                                    <label for="floatingCS">Course/Subject *</label>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please provide a course or subject title.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row 2 of form -->
+                            <div class="row g-2">
+                                <!-- Section number form input -->
+                                <div class="user-select-none form-floating col-md-4 mb-3">
+                                    <input id="floatingSec" type="number" name="section" class="form-control" placeholder="Section *" value="1" min="1" required>
+                                    <label for="floatingSec">Section *</label>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please provide a section.
+                                    </div>
+                                </div>
+                                <!-- Semester form input -->
+                                <div class="user-select-none form-floating col-md-4 mb-3">
+                                    <select id="floatingSem" name="semester" class="form-select">
+                                        <option selected disabled>Semester</option>
+                                        <option value="spring">Spring</option>
+                                        <option value="fall">Fall</option>
+                                    </select>
+                                    <label for="floatingSem">Semester</label>
+                                </div>
+                                <!-- Year form input -->
+                                <div class=" user-select-none form-floating col-md-4 mb-3">
+                                    <select id="floatingYear" name="year" class="form-select">
+                                        <option selected disabled>Year</option>
+                                        {% for year in range(2021, 2100) %}
+                                            <option>{{ year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="floatingYear">Year</label>
+                                </div>
+                            </div>
+                            <!-- Row 3 of form -->
+                            <div class="row g-2">
+                                <!-- Instructor name form input -->
+                                <div class="user-select-none form-floating col-md-6">
+                                    <input id="floatingIns" type="text" name="instructor" class="form-control" placeholder="Laboratory Instructor">
+                                    <label for="floatingIns">Laboratory Instructor</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Start Notebook</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Experiment Modal -->
+    <div class="modal fade" id="experimentModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-light">
+                <div class="user-select-none modal-header">
+                    <!-- Add modal title -->
+                    <h5 class="modal-title" id="ModalLabel">Start an Experiment</h5>
+                    <!-- Set Notebook number from which experiment was created as sub title-->
+                    <span class="notebook_no position-absolute end-0 me-5"></span>
+                    <!-- Add Close Button to Modal -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Experiment Creation Criteria -->
+                <form action="/experiment" method="post" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!-- Row 1 of form -->
+                            <div class="row g-2">
+                                <div class="user-select-none form-floating col-md-12 mb-3">
+                                    <textarea id="floatingES" autofocus name="topic" class="form-control" placeholder="Experiment/Subject *" required rows="2"></textarea>
+                                    <label for="floatingES">Experiment/Subject *</label>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please provide a descriptive experiment or subject title.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Row 2 of form -->
+                            <div class="row g-2">
+                                <div class="user-select-none form-floating col-md-12 mb-3">
+                                    <input id="floatingPart" type="text" name="partners" class="form-control" placeholder="Laboratory Partner(s)">
+                                    <label for="floatingPart">Laboratory Partner(s)</label>
+                                </div>
+                            </div>
+                            <!-- Row 3 of form -->
+                            <div class="row g-2">
+                                <div class="user-select-none form-floating col-md-6 mb-3">
+                                    <input id="floatingLock" type="text" name="desk_number" class="form-control" placeholder="Locker/Desk Number">
+                                    <label for="floatingLock">Locker/Desk Number</label>
+                                </div>
+                                <div class="user-select-none form-floating col-md-6">
+                                    <input id="floatingNo" type="number" name="notebook_no" class="form-control notebook_no" value="1" placeholder="Notebook Number *" min="1" max="{{ nb_total }}" required>
+                                    <label for="floatingNo">Notebook Number *</label>
+                                    <div class="invalid-feedback">
+                                        Please provide the notebook number for which this experiment will be created in.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Start Experiment</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

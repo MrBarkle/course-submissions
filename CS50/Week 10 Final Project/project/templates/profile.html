@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ name.first_name | capitalize }} {{ name.last_name | capitalize }}
+{% endblock %}
+
+{% block main %}
+
+    <!-- If alert is True then alert user (for duplicate email during registration only) -->
+    {% if alert %}
+        {% if alert == 1 %}
+            <div class="user-select-none alert alert-warning alert-dismissible text-center shadow-sm">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                Welcome, {{ name.first_name | capitalize }}. <strong>This page coming soon!</strong> Please forgive any inconvenience. <a class="text-decoration-none" href="/">Return to Labnote home?</a>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
