@@ -1,0 +1,501 @@
+/*------------------------- Loading Screen CSS --------------------------*/
+
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 304px;
+    margin: -150px 0 0 -152px;
+    -webkit-animation: spin 5s linear infinite;
+    animation: spin 5s linear infinite;
+    z-index: 1001;
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: black;
+    z-index: 1000;
+}
+
+#loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+
+#loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(-100%);  /* IE 9 */
+    transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+}
+
+.loaded #loader-wrapper .loader-section.section-right {
+    -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(100%);  /* IE 9 */
+    transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+}
+
+.loaded #loader {
+    opacity: 0;
+}
+
+.loaded #loader-wrapper {
+    visibility: hidden;
+    -webkit-transform: translateY(-100%);
+            -ms-transform: translateY(-100%);
+                transform: translateY(-100%);
+
+        -webkit-transition: all 0.3s 1s ease-out;
+                transition: all 0.3s 1s ease-out;
+}
+
+.loaded #loader {
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper .loader-section.section-right,
+.loaded #loader-wrapper .loader-section.section-left {
+
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+                transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.no-js #loader-wrapper {
+    display: none;
+}
+
+/*------------------------- Index.html CSS --------------------------*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    background: black;
+    width: 100vw;
+    max-width: 100%;
+    height: 100%;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    box-shadow: 0 0 500px black inset;
+    z-index: 997;
+}
+
+#video_bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.navbar {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+}
+
+.intro_text_container{
+    position: relative;
+    height: 100vh;
+    z-index: 998;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8));
+}
+
+.about_text_container, .story_text_container {
+    position: relative;
+    min-height: 100vh;
+    z-index: 998;
+    background: rgba(0,0,0,0.8);
+}
+
+.footer_container {
+    position: relative;
+    background: rgba(0,0,0,0.8);
+    z-index: 998;
+}
+
+#navbarDropdownMenuLink, b {
+    color: #C70039;
+}
+
+#navbar_title {
+    color: white;
+    margin-right: 100px;
+}
+
+#intro {
+    margin: 0 1% 0 1%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#intro:after, #vaults_intro:after, #spinnre_intro:after {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%,100%,0);
+    width: 15px;
+    height: 15px;
+    display: block;
+    content: "";
+    background: #03C2FF;
+    border-radius: 100%;
+    margin-bottom: 5%;
+}
+
+h1 {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.9915;
+    line-height: 150%;
+    letter-spacing: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 2.5em;
+}
+
+#about_one, #story {
+    padding-top: 4%;
+}
+
+#about_one {
+    margin-left: 13%;
+}
+
+#about_two {
+    margin-left: 15.5%;
+}
+
+#about_text {
+    margin-left: 20%;
+    margin-right: 30%;
+    width: 50%;
+}
+
+#story {
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#story_text {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+p {
+    color: white;
+    line-height: 200%;
+    font-family: 'Numans', sans-serif;
+    letter-spacing: 3px;
+    font-weight: 400;
+}
+
+#footer_CS50_link {
+    margin-left: 5%;
+}
+
+#edX_logo, #lotro_logo {
+    top: 0;
+    width: auto;
+    height: 50px;
+    margin: 15px;
+}
+
+#lotro_logo {
+    right: 0;
+    position: absolute;
+    margin-right: 5%;
+}
+
+a:link { /*unvisited link*/
+    color: #03C2FF;
+}
+
+a:visited { /*visited link*/
+    color: #C70039;
+}
+
+a:hover{ /*mouse over*/
+    text-decoration: none;
+    opacity: 0.5;
+}
+
+.banner {
+    margin-top: 40px;
+    width: 90%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section {
+    margin: 10px 5% 2% 2%;
+    width: 50%;
+    height: auto;
+    float: right;
+}
+
+.carousel-item {
+    font-family: "Marcellus SC";
+}
+
+.noselect, .nav-link {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+/*------------------------- Other pages CSS --------------------------*/
+
+.vaults_bg, .barkle_bg, .spinnre_bg, .isen_bg {
+    position: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    min-width: 100%;
+}
+
+.spinnre_bg {
+    right: 0;
+}
+
+.text_container {
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    min-height: 100vh;
+    top: 55px;
+    border: 50px solid transparent;
+    background-clip: padding-box;
+    border-style: double
+}
+
+#vaults_intro, #vaults_end, #vaults_raid, #vaults_pvmp,
+#spinnre_intro, #bs_ambush, #bs_1v1, #bs_raid, #bs_end,
+#barkles_intro, #isendeep_intro, #spinnre_intro {
+    text-align: center;
+    margin: 2% 5% 0 5%;
+}
+
+.class_logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: auto;
+}
+
+#vaults_intro_text, #bs_intro_text {
+    margin: 2% 5% 2% 5%;
+}
+
+.vt {
+    margin: 0 5% 5% 5%;
+}
+
+.vt_center {
+    text-align: center;
+}
+
+h2 {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.9915;
+    line-height: 150%;
+    letter-spacing: 10px;
+    font-weight: 500;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#end {
+    text-align: right;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.inline-image {
+    position: relative;
+    width: 90%;
+    height: auto;
+    margin: 0 5% 1% 5%;
+}
+
+.small {
+    display: block;
+    max-height: 74px;
+    max-width: 414px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+
+.videoWrapper iframe {
+    position: absolute;
+    display: block;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+}
+
+q {
+    display: block;
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+
+/*--------------------------------------------------------------*/
+
+@media (max-width: 576px){
+    #intro, #about_one, #about_two, #story, #navbar_title{
+        font-size: 1.6em;
+    }
+
+    #navbar_title {
+        margin: 0;
+    }
+
+    #about_text, #story_text {
+        margin: 5%;
+        width: 90%;
+    }
+
+    .section, #footer_CS50_link, #edX_logo, #lotro_logo {
+        display: none;
+    }
+
+    .footer_container {
+        padding-top: 5%;
+        text-align: center;
+        padding-bottom: 5%;
+    }
+
+    /*------------------------------- Other CSS ------------------*/
+
+    #vaults_intro, #vaults_raid, #vaults_pvmp, #vaults_end,
+    #barkles_intro, #isendeep_intro, #spinnre_intro, #bs_1v1,
+    #bs_raid, #bs_ambush, #bs_end {
+        font-size: 1.6em;
+        margin: 2%;
+    }
+
+    .text_container {
+        border: 10px solid transparent;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        letter-spacing: 5px;
+    }
+}
+/*--------------------------------------------------------------
+
+Sources Cited
+
+'#intro:after' and design concept from:
+https://julemont-watches.com/en
+
+'.noselect' from:
+https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
+
+scroll bar from:
+https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp
+
+loadscreen from Petr Tichy at:
+https://ihatetomatoes.net/create-custom-preloading-screen/
+
+Ring text from:
+https://www.deviantart.com/vanyanie/art/One-Ring-Inscription-Circle-Vector-706496705
+
+*----------------------------------------------------------------/

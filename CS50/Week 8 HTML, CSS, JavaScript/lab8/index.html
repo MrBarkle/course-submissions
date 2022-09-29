@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+
+            // Run script once DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+
+                // Keep track of which questions have been answered
+                var mc1 = false;
+                var mc2 = false;
+                var fr1 = false;
+                var fr2 = false;
+
+                // Correct answer for question 1
+                let correct1 = document.querySelector('.correct1');
+                correct1.addEventListener('click', function() {
+                    if (mc1 == false) {
+                        correct1.style.backgroundColor = 'green';
+                        document.querySelector('#feedback_mc1').innerHTML = 'Correct!';
+                        mc1 = true;
+                    }
+                });
+
+                // Correct answer for question 2
+                let correct2 = document.querySelector('.correct2');
+                correct2.addEventListener('click', function() {
+                    if (mc2 == false) {
+                        correct2.style.backgroundColor = 'green';
+                        document.querySelector('#feedback_mc2').innerHTML = 'Correct!';
+                        mc2 = true;
+                    }
+                });
+
+                // Incorrect answers for question 1
+                let incorrects1 = document.querySelectorAll('.incorrect1');
+                for (let i = 0; i < incorrects1.length; i++) {
+                    incorrects1[i].addEventListener('click', function() {
+                        if (mc1 == false) {
+                            incorrects1[i].style.backgroundColor = 'red';
+                            document.querySelector('#feedback_mc1').innerHTML = 'Incorrect';
+                            mc1 = true;
+                        }
+                    });
+                }
+
+                // Incorrect answers for question 2
+                let incorrects2 = document.querySelectorAll('.incorrect2');
+                for (let i = 0; i < incorrects2.length; i++) {
+                    incorrects2[i].addEventListener('click', function() {
+                        if (mc2 == false) {
+                            incorrects2[i].style.backgroundColor = 'red';
+                            document.querySelector('#feedback_mc2').innerHTML = 'Incorrect';
+                            mc2 = true;
+                        }
+                    });
+                }
+
+                // Check free response question 1
+                document.querySelector('#check1').addEventListener('click', function() {
+                    let input1 = document.querySelector('#q1');
+                    if (fr1 == false) {
+                        // Set answer here and check it
+                        if (input1.value.toLowerCase() == 'triptych') {
+                            input1.style.backgroundColor = 'green';
+                            document.querySelector('#feedback_fr1').innerHTML = 'Correct!';
+                            fr1 = true;
+                        } else {
+                            input1.style.backgroundColor = 'red';
+                            document.querySelector('#feedback_fr1').innerHTML = 'Incorrect';
+                            fr1 = true;
+                        }
+                    }
+                });
+
+                // Check free response question 2
+                document.querySelector('#check2').addEventListener('click', function() {
+                    let input2 = document.querySelector('#q2');
+                    if (fr2 == false) {
+                        // Set answer here and check it
+                        if (input2.value == 'import this') {
+                            input2.style.backgroundColor = 'green';
+                            document.querySelector('#feedback_fr2').innerHTML = 'Correct!';
+                            fr2 = true;
+                        } else {
+                            input2.style.backgroundColor = 'red';
+                            document.querySelector('#feedback_fr2').innerHTML = 'Incorrect';
+                            fr2 = true;
+                        }
+                    }
+                });
+
+            });
+
+        </script>
+
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>This type of bond involves the sharing of electron pairs between different atoms. What do you call this bond?</h3>
+
+                <button class="incorrect1">Ionic</button>
+                <button class="correct1">Covalent</button>
+                <button class="incorrect1">Metallic</button>
+                <button class="incorrect1">Van der Waals force</button>
+
+                <p id="feedback_mc1"></p>
+
+            </div>
+
+            <div class="section">
+                <hr>
+                <h3>What is the second most populous city in South Korea?</h3>
+
+                <button class="incorrect2">Incheon Metropolitan City(인천광역시)</button>
+                <button class="incorrect2">Seoul (서울)</button>
+                <button class="incorrect2">Jeju City (제주시)</button>
+                <button class="correct2">Busan (부산)</button>
+
+                <p id="feedback_mc2"></p>
+
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+
+                <h3>What is the term for a work of art made of three parts, usually hinged together.</h3>
+                <input id="q1" type="text"></input>
+                <button id="check1">Submit</button>
+
+                <p id="feedback_fr1"></p>
+
+            </div>
+
+            <div class="section">
+                <hr>
+                <h3>Tim Peters, a major contributor to the Python community, wrote "The Zen of Python" to highlight the philosophies of Python. What should you type into your Python IDLE to find this poem?</h3>
+                <input id="q2" type="text"></input>
+                <button id="check2">Submit</button>
+
+                <p id="feedback_fr2"></p>
+
+            </div>
+
+        </div>
+    </body>
+</html>
