@@ -1,7 +1,7 @@
-[MrBarkle on GitHub](#title)
+[Code Sample Portfolio 2022](#title)
 ===========================
 
-[Code Sample Portfolio 2022](#intro)
+[Introduction](#intro)
 ------------------------------------
 
 Included are some the most recent project submissions of mine to be used as code samples. These projects were completed by me as part of the requirements for both **CS50** and **CS50AI** in the years 2021-2022. They range from solving very simple to more complex problems using C, Python, SQL, or HTML/CSS/JavaScript. The aforementioned courses are provided online via HarvardX, an online learning initiative by Harvard University through edX. <ins>**For the best representation of what I have learned in these courses I recommend taking a look at CS50's weeks 8-10 problem sets and CS50AI's projects.**</ins> Just as within my resume, proof of my completion of these courses can be found below.
