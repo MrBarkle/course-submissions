@@ -64,7 +64,3 @@ A quick overview of the files included in this sample:
         * Project 5 ([Traffic](https://github.com/brandonbarkle/course-submissions/tree/main/CS50AI/Week%205%20Neural%20Networks/Project%205/traffic))
     * Week 6 Language
         * Project 6 ([Parser](https://github.com/brandonbarkle/course-submissions/tree/main/CS50AI/Week%206%20Language/Project%206/parser), [Questions](https://github.com/brandonbarkle/course-submissions/tree/main/CS50AI/Week%206%20Language/Project%206/questions))
-
-[-](#end)
---------
-
