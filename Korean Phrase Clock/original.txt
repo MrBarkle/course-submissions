@@ -1,0 +1,139 @@
+'''
+NOTICE: This is the original version of clock.py that I had written in 2018 when I first decided to create this project. I have included it here as a reference to display changes made and improvements in code. This file is not required to use the project and may be deleted. 
+'''
+
+import time
+import tkinter as tk
+from tkinter import *
+from PIL import ImageTk
+
+# Alow for the top of the window to be draggable
+class WindowDraggable():
+    def __init__(self, drag_bar):
+        self.drag_bar = drag_bar
+        drag_bar.bind('<ButtonPress-1>', self.StartMove)
+        drag_bar.bind('<ButtonRelease-1>', self.StopMove)
+        drag_bar.bind('<B1-Motion>', self.OnMotion)
+        root.overrideredirect(True)
+    def StartMove(self, event):
+        self.x = event.x
+        self.y = event.y
+    def StopMove(self, event):
+        self.x = None
+        self.y = None
+    def OnMotion(self,event):
+        x = (event.x_root - self.x - self.drag_bar.winfo_rootx()
+             + self.drag_bar.winfo_rootx())
+        y = (event.y_root - self.y - self.drag_bar.winfo_rooty()
+             + self.drag_bar.winfo_rooty())
+        window.geometry("+{}+{}".format(x, y))
+
+# Display time textually in Korean
+def tick_text_ko(time):
+    h = int(time[0:2])
+    m = int(time[3:5])
+    hours = {1: '한', 2: '두', 3: '세', 4: '네', 5: '다섯', 6: '여섯',
+             7: '일곱', 8: '여덟',9: '아홉', 10: '열', 11: '열한', 12: '열두'}
+    minutes = { 1 : '일', 2 : '이', 3 : '삼', 4 : '사', 5 : '오',
+                6 : '육', 7 : '칠', 8 : '팔', 9 : '구', 10 : '십',
+               11 : '십일', 12 : '십이', 13 : '십삼', 14 : '십사',
+               15 : '십오', 16 : '십육', 17 : '십칠', 18 : '십팔',
+               19 : '십구', 20 : '이십', 21 : '이십일', 22 : '이십이',
+               23 : '이십삼', 24 : '이십사', 25 : '이십오',
+               26 : '이십육', 27 : '이십칠', 28 : '이십팔', 29: '이십구'}
+    # O' Clock time
+    if m == 0:
+        return hours[h] + "시 정각이에요"
+    # Before 30 minutes after
+    elif m < 30:
+        return hours[h] + '시 ' + minutes[m] + '분이에요'
+    # 30 minutes or later
+    elif m > 30:
+        if m == 45:
+            # It's 45 minutes past [hours]
+            return hours[h] + '시 ' + '사십오분이에요'
+        else:
+            if h == 12:
+                 # It's [minutes] minutes before [hour]
+                return minutes[60 - m] + '분 전 ' + hours[1] + '시예요'
+            else:
+                 # It's [minutes] minutes before [hour]
+                return minutes[60 - m] + '분 전 ' + hours[h + 1] + '시예요'
+    else:
+        return hours[h] + '시 삼십분이에요' # or just 반 (half)
+
+def ko_date(time):
+    d = time[8:11]
+    m = time[11:14]
+    n = int(time[14:16])
+    y = time[16:20]
+    days = {'Mon' : '월요일', 'Tue' : '화요일', 'Wed' : '수요일', 'Thu' : '목요일',
+            'Fri' : '금요일', 'Sat' : '토요일', 'Sun' : '일요일'}
+    months = {'Jan' : '일', 'Feb' : '이', 'Mar' : '삼', 'Apr' : '사', 'May' : '오',
+              'Jun' : '육', 'Jul' : '칠', 'Aug' : '팔', 'Sep' : '구', 'Oct' : '십',
+              'Nov' : '십일', 'Dec' : '십이'}
+    num = { 1 : '일', 2 : '이', 3 : '삼', 4 : '사', 5 : '오',
+            6 : '육', 7 : '칠', 8 : '팔', 9 : '구', 10 : '십',
+           11 : '십일', 12 : '십이', 13 : '십삼', 14 : '십사',
+           15 : '십오', 16 : '십육', 17 : '십칠', 18 : '십팔',
+           19 : '십구', 20 : '이십', 21 : '이십일', 22 : '이십이',
+           23 : '이십삼', 24 : '이십사', 25 : '이십오',
+           26 : '이십육', 27 : '이십칠', 28 : '이십팔', 29: '이십구',
+           30 : '삼십', 31 : '삼십일'}
+    years = {'2018' : '이천십팔', '2019' : '이천십구'} # TODO: Add more years!
+    # Korean starts with a bigger unit and then moves to a smaller unit
+    return years[y]+'년  '+months[m]+'월  '+num[n]+'일  '+days[d]
+
+# Determine the time
+def tick(time1=''):
+    # Get the current local time from the PC
+    time2 = time.strftime('%I:%M:%S%a%b%d%Y')
+    # Change to [tick_text_en] or [tick_text_ko] for lanugage change
+    time3 = tick_text_ko(time2)
+    date = ko_date(time2)
+    # If the time string has changes, update it
+    if time2 != time1:
+        time1 = time2
+        clock_frame.config(text=time3)
+        seconds_frame.config(text=time2[6:8]+'초')
+        date_frame.config(text=date)
+    # Calls itself every 200 milliseconds to update
+    clock_frame.after(200, tick)
+
+root = Tk()
+
+# Place window pane on root, set geometry and remove border
+root.attributes('-alpha', 0.0)
+root.iconify()
+window = Toplevel(root)
+# Determine values to place in geometry function for centering on screen
+window.geometry("1500x300+2125+210")             # + some to place on screen # 2
+window.overrideredirect(1)
+
+# Set attributes for buttons and labels
+drag_bar = Label(window, bg= 'gray6')
+close = Button(drag_bar, command = lambda: root.destroy(), bg= 'grey6',
+               activebackground='grey6', bd=0)
+date_frame = Label(window, font=('Gulim', 20), bg= 'gray6', fg = 'DarkOrange2')
+question_frame = Label(window, font=('Gulim', 20), bg= 'gray12', fg = 'white')
+clock_frame = Label(window, font=('Gulim', 100), bg= 'gray12', fg = 'white')
+seconds_frame = Label(window, font=('Gulim', 20), bg= 'gray6', fg = 'white')
+
+# Additional configurations
+image = ImageTk.PhotoImage(
+        file='F:\Computer Science\Python\projects\korean_clock\exit.png')
+close.config(image=image)
+question_frame.config(text='몇 시예요?')
+
+# Pack the buttons and lables
+drag_bar.pack(fill='both', expand=1)
+close.pack(side='right', padx=10)
+date_frame.pack(fill='both', expand=1)
+question_frame.pack(fill='both', expand=1)
+clock_frame.pack(fill='both', expand=1)
+seconds_frame.pack(fill='both', expand=1)
+
+# Run
+WindowDraggable(drag_bar)
+tick()
+window.mainloop()
