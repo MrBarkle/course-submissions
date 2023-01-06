@@ -1,16 +1,16 @@
-# ![Korean Icon](/images/icon.png) [Korean Phrase Clock](#title)
+# ![Korean Icon](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/images/icon.png) [Korean Phrase Clock](#title)
 
 #### Created By: [Brandon Barkle](https://www.linkedin.com/in/brandonbarkle)
 
 ## Project Description:
 
-For this project I have created two Python files: [clock.py](/clock.py) and [koreanNumbers.py](/koreanNumbers.py). Together they are used to create a simple clock that displays the current local time in the Korean language as it would be written out fully for the purpose of speaking. What does this mean? Rather than displaying the time as 2:30 AM for instance, in Korean you could read the time as "오전 두 시 반" instead. This clock makes use of a simple Tkinter interface to actively display the time in the format described.
+For this project I have created two Python files: [clock.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/clock.py) and [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py). Together they are used to create a simple clock that displays the current local time in the Korean language as it would be written out fully for the purpose of speaking. What does this mean? Rather than displaying the time as 2:30 AM for instance, in Korean you could read the time as "오전 두 시 반" instead. This clock makes use of a simple Tkinter interface to actively display the time in the format described.
 
 I created this project to help myself, and hopefully others, learn the Korean number system, date format, and time format. With it, I think it's possible to learn all of these things!
 
-I first created this project back in 2018 and decided to update it with a growing understanding of Python programming as I work towards building my portfolio. I have included an [original.txt](/original.txt) file to show what the original code version looked like (In case you'd like to see how I've improved over the years).
+I first created this project back in 2018 and decided to update it with a growing understanding of Python programming as I work towards building my portfolio. I have included an [original.txt](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/original.txt) file to show what the original code version looked like (In case you'd like to see how I've improved over the years).
 
-![Korean Clock Example Image](/images/example.png)
+![Korean Clock Example Image](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/images/example.png)
 In the image above, the first label on the clock (shown in blue) gives the current date written out in Korean in the form of: "Today, year, month, day, day of the week, is." Translated to English this reads something like: "Today is, day of the week, month, day, year."
 
 Underneath of the blue bar on white is a question that reads, "몇 시예요?" or "What time is it?"
@@ -27,17 +27,17 @@ A short language lesson and explanation of the display formatting:
 
 The final label at the bottom of the clock indicates the seconds counter.
 
-## About The '[clock.py](/clock.py)' File:
+## About The '[clock.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/clock.py)' File:
 
 When run from the terminal this file creates the clock object using a Tkinter interface, pulls from the local time for labels, and formats a datetime object to be properly displayed in Korean. It contains the following functions:
 
 - ### `get_time_in_korean(dt)`:
 
-  This function takes a datetime object in as input and extracts the time portion of it. It then converts that time to an equivalent string written in Korean using a local dictionary for hours and a call to my [koreanNumbers.py](/koreanNumbers.py) file for the minutes. **In Korean, there are two number systems. These consist of Native Korean numbers and Sino-Korean numbers. Hours use the Native Korean system where as minutes use the Sino-Korean system**. The time is formatted as described above and is returned as a string to be used later on as a label on the clock.
+  This function takes a datetime object in as input and extracts the time portion of it. It then converts that time to an equivalent string written in Korean using a local dictionary for hours and a call to my [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py) file for the minutes. **In Korean, there are two number systems. These consist of Native Korean numbers and Sino-Korean numbers. Hours use the Native Korean system where as minutes use the Sino-Korean system**. The time is formatted as described above and is returned as a string to be used later on as a label on the clock.
 
 - ### `get_date_in_korean(dt)`:
 
-  This function also takes a datetime object but instead extracts the date portion of it. It converts the day of the week using a local dictionary and converts the year, month, and day using the same [koreanNumbers.py](/koreanNumbers.py) call from earlier.
+  This function also takes a datetime object but instead extracts the date portion of it. It converts the day of the week using a local dictionary and converts the year, month, and day using the same [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py) call from earlier.
 
 - ### `display(curr=" ")`:
 
@@ -47,45 +47,45 @@ The remainder of the file then creates and configures the look and feel of the c
 
 If imported, assuming you are within the same working directory, these functions can be used to make conversions from another file as shown in the following example:
 
-![Code Sample Describing How to Use clock.py as Import](/images/code_sample_2.png)
+![Code Sample Describing How to Use clock.py as Import](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/images/code_sample_2.png)
 
 When this code is run, it results in the following output:
 
-![Output of Previously Described Code Sample](/images/output.png)
+![Output of Previously Described Code Sample](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/images/output.png)
 
-## About The '[koreanNumbers.py](/koreanNumbers.py)' File:
+## About The '[koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py)' File:
 
 This file takes a number between 0 and 9999 and converts it to the Sino-Korean spoken equivalent of that number. A class object is created for each new number. Additionally, if desired the koreanNumbers.py file can be called in the terminal with an added number argument. As long as this number is within the specified range, the Korean translation will be printed to the terminal if supported (Shown Below).
 
-![Terminal Call Example](/images/terminal.png)
+![Terminal Call Example](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/images/terminal.png)
 
 This file includes the following class:
 
 - ### `class KoreanNumber()`:
 
-  This class sets a number in the constructor based on the value that was passed to it. Within this class is a `_convert_to_sino( )` function that contains the nested functions for `_get_units_place(num)`, `_get_tens_place(num)`, `_get_hundreds_place(num)`, and `_get_thousands_place(num)`.
+  This class sets a number in the constructor based on the value that was passed to it. Within this class is a `_convert_to_sino()` function that contains the nested functions for `_get_units_place(num)`, `_get_tens_place(num)`, `_get_hundreds_place(num)`, and `_get_thousands_place(num)`.
 
 - ### `_convert_to_sino()`:
 
   This internal function makes use of a dictionary to define the key components of a Sino-Korean number with definitions for numbers 0 - 10, 100, and 1000. These values are all that is needed to construct any number from 0 to 9999. Depending on the length of the number being converted, a call to one of the following internal functions is made and a string representation of that number in Korean is returned.
 
-- `_get_units_place(num)`:
+- ### `_get_units_place(num)`:
   This nested internal function takes the value located within the final digit of a number and returns its string equivalent.
 
-- `_get_tens_place(num)`:
+- ### `_get_tens_place(num)`:
   This nested internal function handles the return of string values for numbers corresponding to the 10s place digit.
 
-- `_get_hundreds_place(num)`:
+- ### `_get_hundreds_place(num)`:
   This nested internal function handles the return of string values for numbers corresponding to the 100s place digit, trickling down into the 10s or final digit places if necessary and making calls to each's corresponding function.
 
-- `_get_thousands_place(num)`:
+- ### `_get_thousands_place(num)`:
   This nested internal function handles the return of string values for numbers corresponding to the 1000s place digit, trickling down into the 100s, 10s, or final digit places if necessary and making calls to each's corresponding function.
 
 ## Technologies Used and Challenges Faced:
 
-With the addition of match:case to Python 3.10+ I wanted to try out this feature for myself. I've only recently started exploring other languages in depth and was pleased to see that upon updating my current version of Python, I could also make use of this capability. I decided to add a match:case in [koreanNumbers.py](/koreanNumbers.py) as a substitute for multiple if/ifelse statements. (Shown Below)
+With the addition of match:case to Python 3.10+ I wanted to try out this feature for myself. I've only recently started exploring other languages in depth and was pleased to see that upon updating my current version of Python, I could also make use of this capability. I decided to add a match:case in [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py) as a substitute for multiple if/ifelse statements. (Shown Below)
 
-![Example Code Image](/images/code_sample_1.png)
+![Example Code Image](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/images/code_sample_1.png)
 
 I hadn't had much experience working with datetime objects and wanted to gain some exposure to this area of Python as well. In my latest version of this project, I make use of datetime objects instead of using the 'time' import with slicing.
 
@@ -93,11 +93,11 @@ I also wanted to explore object-oriented programming more which is why I opted t
 
 I've made use of the '`os`' import to properly create a path that can be used on both Windows and Mac; something I have learned to use recently as a best practice for compatibility.
 
-My original code for this project made the mistake of repeating and hardcoding. I think I have now made a valid attempt at remedying this. Rather than creating a dictionary in multiple locations for numbers between 0 and 60 for minutes, and 1-12 for hours, I have created the [koreanNumbers.py](/koreanNumbers.py) class to handle all number building needs. Conveniently, this can also be used for year numbers, month numbers, day numbers, and seconds. My previous version of the Korean Phrase Clock would break every year. I would then be forced to go in and add a new year to my code's dictionaries if I wanted to keep using it. This was not ideal. My new implementation has solved this issue. As an added bonus anyone that has the file can import it for use in their projects or call it from the terminal!
+My original code for this project made the mistake of repeating and hardcoding. I think I have now made a valid attempt at remedying this. Rather than creating a dictionary in multiple locations for numbers between 0 and 60 for minutes, and 1-12 for hours, I have created the [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py) class to handle all number building needs. Conveniently, this can also be used for year numbers, month numbers, day numbers, and seconds. My previous version of the Korean Phrase Clock would break every year. I would then be forced to go in and add a new year to my code's dictionaries if I wanted to keep using it. This was not ideal. My new implementation has solved this issue. As an added bonus anyone that has the file can import it for use in their projects or call it from the terminal!
 
 I have decided to make use of f'strings rather than '`+`' string concatenation when building my string returns as I believe this to be a more efficient method of joining strings together in Python.
 
-I have noticed that some terminal windows are not configured by default to display UTF-8 characters including those from the Korean language. This would be an issue if someone was attempting to call the [koreanNumbers.py](/koreanNumbers.py) file from the terminal with an additional number argument. I believe the fix is related to how the user sets up their terminal environment rather than a coding issue.
+I have noticed that some terminal windows are not configured by default to display UTF-8 characters including those from the Korean language. This would be an issue if someone was attempting to call the [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py) file from the terminal with an additional number argument. I believe the fix is related to how the user sets up their terminal environment rather than a coding issue.
 
 One final comment, I have made a few little fun uses of the '`%`' operator throughout my code which was something I knew was possible in the past but is much cleaner than how I would have previously solved a problem back in 2018. Cool, math!
 
@@ -121,7 +121,7 @@ I had a lot of fun re-making this project and updating it to reflect my current 
 
 ## Credits:
 
-Line's containing: `len("%i" % i)` in [koreanNumbers.py](/koreanNumbers.py) taken from suggestion in [this](https://stackoverflow.com/questions/2189800/how-to-find-length-of-digits-in-an-integer) thread:
+Line's containing: `len("%i" % i)` in [koreanNumbers.py](https://github.com/brandonbarkle/portfolio/blob/main/Korean%20Phrase%20Clock/koreanNumbers.py) taken from suggestion in [this](https://stackoverflow.com/questions/2189800/how-to-find-length-of-digits-in-an-integer) thread:
 
 Singling out specific digits described [here](https://stackoverflow.com/questions/32752750/how-to-find-the-numbers-in-the-thousands-hundreds-tens-and-ones-place-in-pyth)
 
