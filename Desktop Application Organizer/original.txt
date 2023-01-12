@@ -1,0 +1,375 @@
+'''
+NOTICE: This is the original version of bags.pyw that I had written in 2018 when I first decided to create this project. I have included it here as a reference to display changes made and improvements in code. The original file contained a total of 1170 lines of code vs the newly reduced 692 lines of code. This file is not required to use the project and may be deleted. 
+'''
+
+from tkinter import *
+from PIL import ImageTk
+import os
+import webbrowser
+import time
+
+# Alow for the item to be draggable
+class WindowDraggable():
+    def __init__(self, drag_bar, window):
+        self.drag_bar = drag_bar
+        self.window = window
+        drag_bar.bind('<ButtonPress-1>', self.StartMove)
+        drag_bar.bind('<ButtonRelease-1>', self.StopMove)
+        drag_bar.bind('<B1-Motion>', self.OnMotion)
+        window.overrideredirect(True)
+
+    def StartMove(self, event):
+        self.x = event.x
+        self.y = event.y
+
+    def StopMove(self, event):
+        self.x = None
+        self.y = None
+
+    # While moving, change window location
+    def OnMotion(self, event):
+        x = (event.x_root - self.x - self.drag_bar.winfo_rootx() +
+                self.drag_bar.winfo_rootx())
+        y = (event.y_root - self.y - self.drag_bar.winfo_rooty() +
+                self.drag_bar.winfo_rooty())
+        self.window.geometry("+{}+{}".format(x, y))
+
+# Creates a delayed tooltip when hovering over a button
+class ToolTip():
+    def __init__(self, window, img, desc, title):
+        self.window = window
+        self.img = img
+        self.desc = desc
+        self.title = title
+        window.bind('<Enter>', self.onEnter)
+        window.bind('<Leave>', self.onLeave)
+
+    # Create a tooltip when hovering over a button
+    def onEnter(self, event):
+        # Set tooltip delay
+        time.sleep(0.5)
+        # Configure tooltip location and attributes
+        locx, locy = self.window.winfo_pointerxy()
+        self.tooltip = Toplevel()
+        self.tooltip.attributes('-topmost', True)
+        if (locx - 155) > 0:
+            self.tooltip.geometry('+{}+{}'.format(locx - 155, locy + 20))
+        else:
+            self.tooltip.geometry('+{}+{}'.format(locx + 15, locy + 20))
+        self.tooltip.overrideredirect(True)
+        self.tooltip.attributes('-alpha', 0.8)
+        # Add labels
+        background = Label(self.tooltip, bg='#050c12', bd=2, relief='ridge')
+        background.pack(fill='both', expand=1)
+        header = Label(background, text=self.title, font=('Trajan Pro', 11),
+                    wraplength=150, justify='left', bg='#050c12', fg='#c8c9a9')
+        image = Label(background, image=self.img, bg='#050c12')
+        description = Label(background, text=self.desc, font=('Calibri', 11),
+                    wraplength=150, justify='left', bg='#050c12', fg='#c8c9a9')
+        image.grid(row=0, column=0, stick='w')
+        header.grid(row=0, column=1, stick='w', padx=5)
+        description.grid(row=1, columnspan=2, stick='w')
+
+    # Destroy the tooltip if hovering off of the button
+    def onLeave(self, event):
+        self.tooltip.destroy()
+
+# Start the specified .exe file, folder, or path
+def openFile(path):
+    os.startfile(path)
+
+# Press 'i' while taskbar is in focus to toggle bags opened and closed
+def keyPress(event):
+    key_press = repr(event.char)
+    if(event.char == 'i'):
+        # If bags are visible, hide them
+        if bag1.state() == 'normal' and bag2.state() == 'normal' and bag3.state() == 'normal' and bag4.state() == 'normal' and bag5.state() == 'normal' and bag6.state() == 'normal':
+            updateBag(bag1,  False), updateBag(bag2, False), updateBag(bag3, False), updateBag(bag4, False), updateBag(bag5, False), updateBag(bag6, False)
+        # Show bags if hidden
+        else:
+            updateBag(bag1, True), updateBag(bag2, True), updateBag(bag3, True), updateBag(bag4, True), updateBag(bag5, True), updateBag(bag6, True)
+
+# If taskbar buttons are pressed, open or close corresponding bag
+def openBag(window):
+    # Close the bag
+    if 'normal' == window.state():
+        updateBag(window, False)
+    # Open the bag
+    else:
+        updateBag(window, True)
+
+# Update taskbar button images when bags open or close
+def updateBag(window, boolean):
+    window_name = str(window)
+    # Close the bag
+    if boolean == False:
+        if window_name == '.!toplevel':
+            TaskBar.bag1_button.config(image=TaskBar.bag1_button_img)
+            TaskBar.bag1_button.image = TaskBar.bag1_button_img
+        elif window_name == '.!toplevel2':
+            TaskBar.bag2_button.config(image=TaskBar.bag2_button_img)
+            TaskBar.bag2_button.image = TaskBar.bag2_button_img
+        elif window_name == '.!toplevel3':
+            TaskBar.bag3_button.config(image=TaskBar.bag3_button_img)
+            TaskBar.bag3_button.image = TaskBar.bag3_button_img
+        elif window_name == '.!toplevel4':
+            TaskBar.bag4_button.config(image=TaskBar.bag4_button_img)
+            TaskBar.bag4_button.image = TaskBar.bag4_button_img
+        elif window_name == '.!toplevel5':
+            TaskBar.bag5_button.config(image=TaskBar.bag5_button_img)
+            TaskBar.bag5_button.image = TaskBar.bag5_button_img
+        elif window_name == '.!toplevel6':
+            TaskBar.bag6_button.config(image=TaskBar.bag6_button_img)
+            TaskBar.bag6_button.image = TaskBar.bag6_button_img
+        window.withdraw()
+    # Open the bag
+    else:
+        if window_name == '.!toplevel':
+            TaskBar.bag1_button.config(image=TaskBar.new_img1)
+            TaskBar.bag1_button.image = TaskBar.new_img1
+        elif window_name == '.!toplevel2':
+            TaskBar.bag2_button.config(image=TaskBar.new_img2)
+            TaskBar.bag2_button.image = TaskBar.new_img2
+        elif window_name == '.!toplevel3':
+            TaskBar.bag3_button.config(image=TaskBar.new_img3)
+            TaskBar.bag3_button.image = TaskBar.new_img3
+        elif window_name == '.!toplevel4':
+            TaskBar.bag4_button.config(image=TaskBar.new_img4)
+            TaskBar.bag4_button.image = TaskBar.new_img4
+        elif window_name == '.!toplevel5':
+            TaskBar.bag5_button.config(image=TaskBar.new_img5)
+            TaskBar.bag5_button.image = TaskBar.new_img5
+        elif window_name == '.!toplevel6':
+            TaskBar.bag6_button.config(image=TaskBar.new_img6)
+            TaskBar.bag6_button.image = TaskBar.new_img6
+        window.update(), window.deiconify()
+
+# Create each bag instance
+taskbar = Tk()
+bag1 = Toplevel()
+bag2 = Toplevel()
+bag3 = Toplevel()
+bag4 = Toplevel()
+bag5 = Toplevel()
+bag6 = Toplevel()
+# Configure taskbar location and attributes
+taskbar.geometry('1920x40+1920+1040')
+taskbar.overrideredirect(True)
+taskbar.attributes('-alpha', 0.9)
+taskbar.attributes('-transparentcolor', 'red')
+taskbar.bind('<Key>', keyPress)
+# Configure bag one location and attributes
+bag1.geometry('197x165+2200+50')
+bag1.overrideredirect(True)
+bag1.attributes('-transparentcolor', 'red')
+bag1.bind('<Key>', keyPress)
+bag1.withdraw()
+# Configure bag two location and attributes
+bag2.geometry('197x165+2420+50')
+bag2.overrideredirect(True)
+bag2.attributes('-transparentcolor', 'red')
+bag2.bind('<Key>', keyPress)
+bag2.withdraw()
+# Configure bag three location and attributes
+bag3.geometry('197x165+2640+50')
+bag3.overrideredirect(True)
+bag3.attributes('-transparentcolor', 'red')
+bag3.bind('<Key>', keyPress)
+bag3.withdraw()
+# Configure bag four location and attributes
+bag4.geometry('197x165+2200+235')
+bag4.overrideredirect(True)
+bag4.attributes('-transparentcolor', 'red')
+bag4.bind('<Key>', keyPress)
+bag4.withdraw()
+# Configure bag five location and attributes
+bag5.geometry('197x165+2420+235')
+bag5.overrideredirect(True)
+bag5.attributes('-transparentcolor', 'red')
+bag5.bind('<Key>', keyPress)
+bag5.withdraw()
+# Configure bag five location and attributes
+bag6.geometry('197x165+2640+235')
+bag6.overrideredirect(True)
+bag6.attributes('-transparentcolor', 'red')
+bag6.bind('<Key>', keyPress)
+bag6.withdraw()
+
+# Add child attributes
+class TaskBar():
+    top = Label(taskbar)
+    close = Button(top, command = lambda: taskbar.destroy(), bg= 'black',
+                   activebackground='black', bd=0)
+    # Taskbar bag buttons -- Configuration
+    bag1_button = Button(top, bg='black', activebackground='black', bd=0)
+    bag2_button = Button(top, bg='black', activebackground='black', bd=0)
+    bag3_button = Button(top, bg='black', activebackground='black', bd=0)
+    bag4_button = Button(top, bg='black', activebackground='black', bd=0)
+    bag5_button = Button(top, bg='black', activebackground='black', bd=0)
+    bag6_button = Button(top, bg='black', activebackground='black', bd=0)
+    # Define images
+    top_img = ImageTk.PhotoImage(file='')
+    close_img = ImageTk.PhotoImage(file='')
+    bag1_button_img = ImageTk.PhotoImage(file='')
+    bag2_button_img = ImageTk.PhotoImage(file='')
+    bag3_button_img = ImageTk.PhotoImage(file='')
+    bag4_button_img = ImageTk.PhotoImage(file='')
+    bag5_button_img = ImageTk.PhotoImage(file='')
+    bag6_button_img = ImageTk.PhotoImage(file='')
+    new_img1 = ImageTk.PhotoImage(file='')
+    new_img2 = ImageTk.PhotoImage(file='')
+    new_img3 = ImageTk.PhotoImage(file='')
+    new_img4 = ImageTk.PhotoImage(file='')
+    new_img5 = ImageTk.PhotoImage(file='')
+    new_img6 = ImageTk.PhotoImage(file='')
+    # Set images
+    top.config(image=top_img)
+    top.image = top_img
+    close.config(image=close_img)
+    close.image = close_img
+    bag1_button.config(image=bag1_button_img, command = lambda: openBag(bag1))
+    bag1_button.image = bag1_button_img
+    bag2_button.config(image=bag2_button_img, command = lambda: openBag(bag2))
+    bag2_button.image = bag2_button_img
+    bag3_button.config(image=bag3_button_img, command = lambda: openBag(bag3))
+    bag3_button.image = bag3_button_img
+    bag4_button.config(image=bag4_button_img, command = lambda: openBag(bag4))
+    bag4_button.image = bag4_button_img
+    bag5_button.config(image=bag5_button_img, command = lambda: openBag(bag5))
+    bag5_button.image = bag5_button_img
+    bag6_button.config(image=bag6_button_img, command = lambda: openBag(bag6))
+    bag6_button.image = bag6_button_img
+    # Pack objects
+    top.pack(fill='both', expand= 1)
+    close.place(x=1903, y=-2)
+    bag6_button.place(x=50, y=8)
+    bag5_button.place(x=100, y=4)
+    bag4_button.place(x=150, y=8)
+    bag3_button.place(x=200, y=4)
+    bag2_button.place(x=250, y=8)
+    bag1_button.place(x=300, y=4)
+
+class CreateBagOne():
+    top = Label(bag1, bg='red')
+    close = Button(top, command = lambda: updateBag(bag1, False), bg= 'grey6', activebackground='grey6', bd=0)
+    # Row 1 slots -- Configuration
+    slot1 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot2 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot3 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot4 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot5 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    # Row 2 slots -- Configuration
+    slot6 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot7 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot8 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot9 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot10 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    # Row 3 slots -- Configuration
+    slot11 = Button(top, command=lambda: webbrowser.open(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 31)
+    slot12 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot13 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot14 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 29, width = 29)
+    slot15 = Button(top, command=lambda: openFile(''), bg='grey6', activebackground='grey6', bd=0, height = 30, width = 30)
+    # Define non-program images
+    top_img = ImageTk.PhotoImage(file='')
+    x_img = ImageTk.PhotoImage(file='')
+    # Define row 1 slot images
+    slot1_img = ImageTk.PhotoImage(file='')
+    slot2_img = ImageTk.PhotoImage(file='')
+    slot3_img = ImageTk.PhotoImage(file='')
+    slot4_img = ImageTk.PhotoImage(file='')
+    slot5_img = ImageTk.PhotoImage(file='')
+    # Define row 2 slot images
+    slot6_img = ImageTk.PhotoImage(file='')
+    slot7_img = ImageTk.PhotoImage(file='')
+    slot8_img = ImageTk.PhotoImage(file='')
+    slot9_img = ImageTk.PhotoImage(file='')
+    slot10_img = ImageTk.PhotoImage(file='')
+    # Define row 3 slot images
+    slot11_img = ImageTk.PhotoImage(file='')
+    slot12_img = ImageTk.PhotoImage(file='')
+    slot13_img = ImageTk.PhotoImage(file='')
+    slot14_img = ImageTk.PhotoImage(file='')
+    slot15_img = ImageTk.PhotoImage(file='')
+    # Set non-program images
+    top.config(image=top_img)
+    top.image = top_img
+    close.config(image=x_img)
+    close.image = x_img
+    # Set row 1 slot images
+    slot1.config(image=slot1_img)
+    slot1.image = slot1_img
+    slot2.config(image=slot2_img)
+    slot2.image = slot2_img
+    slot3.config(image=slot3_img)
+    slot3.image = slot3_img
+    slot4.config(image=slot4_img)
+    slot4.image = slot4_img
+    slot5.config(image=slot5_img)
+    slot5.image = slot5_img
+    # Set row 2 slot images
+    slot6.config(image=slot6_img)
+    slot6.image = slot6_img
+    slot7.config(image=slot7_img)
+    slot7.image = slot7_img
+    slot8.config(image=slot8_img)
+    slot8.image = slot8_img
+    slot9.config(image=slot9_img)
+    slot9.image = slot9_img
+    slot10.config(image=slot10_img)
+    slot10.image = slot10_img
+    # Set row 3 slot images
+    slot11.config(image=slot11_img)
+    slot11.image = slot11_img
+    slot12.config(image=slot12_img)
+    slot12.image = slot12_img
+    slot13.config(image=slot13_img)
+    slot13.image = slot13_img
+    slot14.config(image=slot14_img)
+    slot14.image = slot14_img
+    slot15.config(image=slot15_img)
+    slot15.image = slot15_img
+    # Pack non-slot objects
+    top.pack(fill='both', expand=1)
+    close.place(x=170, y=20)
+    # Row 1 slots -- Placement
+    slot1.place(x=8, y=46)
+    slot2.place(x=45, y=47)
+    slot3.place(x=81, y=47)
+    slot4.place(x=117, y=47)
+    slot5.place(x=153, y=47)
+    # Row 2 slots -- Placement
+    slot6.place(x=9, y=82)
+    slot7.place(x=44, y=82)
+    slot8.place(x=80, y=82)
+    slot9.place(x=117, y=81)
+    slot10.place(x=152, y=81)
+    # Row 3 slots -- Placement
+    slot11.place(x=7, y=117)
+    slot12.place(x=44, y=116)
+    slot13.place(x=80, y=115)
+    slot14.place(x=117, y=117)
+    slot15.place(x=152, y=117)
+    # Add tooltips for each filled slot
+    ToolTip(slot1, slot1_img, '', '')
+    ToolTip(slot2, slot2_img, '', '')
+    ToolTip(slot3, slot3_img, '', '')
+    ToolTip(slot4, slot4_img, '', '')
+    ToolTip(slot5, slot5_img, '', '')
+    ToolTip(slot6, slot6_img, '', '')
+    ToolTip(slot7, slot7_img, '', '')
+    ToolTip(slot8, slot8_img, '', '')
+    ToolTip(slot9, slot9_img, '', '')
+    ToolTip(slot10, slot10_img, '', '')
+    ToolTip(slot11, slot11_img, '', '')
+    ToolTip(slot12, slot12_img, '', '')
+    ToolTip(slot13, slot13_img, '', '')
+    ToolTip(slot14, slot14_img, '', '')
+    ToolTip(slot15, slot15_img, '', '')
+    # Make draggable
+    WindowDraggable(top, bag1)
+
+'''... Repeated variation of the creation of more bags here'''
+
+# Run main
+taskbar.mainloop()
