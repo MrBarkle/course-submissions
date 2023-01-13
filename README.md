@@ -1,11 +1,11 @@
-# [Code Sample Portfolio](#title)
+# Code Sample Portfolio
 #### Created by [Brandon Barkle](https://www.linkedin.com/in/brandonbarkle)
 
 ## Introduction:
 
 
 Within this portfolio is a collection of projects that I have created over the past few years including both personal projects and course work problem set submissions.
-I recommend taking a look at my [Korean Phrase Clock](https://github.com/brandonbarkle/portfolio/tree/main/Korean%20Phrase%20Clock) project and my CS50 Final Project Submission of an [Electronic Laboratory Notebook](https://github.com/brandonbarkle/portfolio/tree/main/CS50/Week%2010%20Final%20Project/project) for examples of code that were my own ideas and not those covered in course material. I also invite you to take a look at my [Desktop Application Organizer](https://github.com/brandonbarkle/portfolio/tree/main/Desktop%20Application%20Organizer) project. While I do not yet have the code listed for this particular project, I am actively in the process of updating old poorly written code to submit a cleaner final result on GitHub. 
+I recommend taking a look at my [Korean Phrase Clock](https://github.com/brandonbarkle/portfolio/tree/main/Korean%20Phrase%20Clock) project, my [Desktop Applications Organizer](https://github.com/brandonbarkle/portfolio/tree/main/Desktop%20Application%20Organizer), and my CS50 Final Project Submission of an [Electronic Laboratory Notebook](https://github.com/brandonbarkle/portfolio/tree/main/CS50/Week%2010%20Final%20Project/project) for examples of code that were my own ideas and not those covered in course material.
 
 ## Included Samples:
 A quick overview of the files included in this sample:
