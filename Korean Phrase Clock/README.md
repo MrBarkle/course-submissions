@@ -103,7 +103,7 @@ One final comment, I have made a few little fun uses of the '`%`' operator throu
 
 ## How To Run:
 
-First make sure you are using [Python](https://www.python.org/downloads/) version 3.10 or later otherwise the code wil break when attempting to perform a match:case operation.
+First make sure you are using [Python](https://www.python.org/downloads/) version 3.10 or later otherwise the code will break when attempting to perform a match:case operation.
 
 Next make sure you have both PIL and Tkinter installed. If you do not have these installed, you will need to do so via pip. This should look something like:
 
