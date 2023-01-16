@@ -15,7 +15,7 @@ A quick overview of the files included in this sample:
 2. [Korean Phrase Clock](https://github.com/brandonbarkle/portfolio/tree/main/Korean%20Phrase%20Clock)
 
 ### Course Submissions:
-1. [CS50](https://github.com/brandonbarkle/portfolio/tree/main/CS50)
+1. [CS50](https://github.com/brandonbarkle/portfolio/tree/main/CS50): Introduction to Computer Science
     * Week 1 C
         * Problem Set 1 ([Credit](https://github.com/brandonbarkle/course-submissions/tree/main/CS50/Week%201%20C/pset1/credit), [Hello](https://github.com/brandonbarkle/course-submissions/tree/main/CS50/Week%201%20C/pset1/hello), [Mario](https://github.com/brandonbarkle/course-submissions/tree/main/CS50/Week%201%20C/pset1/mario))
     * Week 2 Arrays
@@ -44,7 +44,7 @@ A quick overview of the files included in this sample:
     * Week 10 Final Project
         * Final Project ([Lab Note: Electronic Laboratory Notebook](https://github.com/brandonbarkle/course-submissions/tree/main/CS50/Week%2010%20Final%20Project/project))
 
-2. [CS50AI](https://github.com/brandonbarkle/portfolio/tree/main/CS50AI)
+2. [CS50AI](https://github.com/brandonbarkle/portfolio/tree/main/CS50AI): Introduction to Artificial Intelligence with Python
     * Week 0 Search
         * Project 0 ([Degrees](https://github.com/brandonbarkle/course-submissions/tree/main/CS50AI/Week%200%20Search/Project%200/degrees), [Tictactoe](https://github.com/brandonbarkle/course-submissions/tree/main/CS50AI/Week%200%20Search/Project%200/tictactoe))
     * Week 1 Knowledge
